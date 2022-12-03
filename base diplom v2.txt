@@ -1,0 +1,53 @@
+create database diplom;
+use diplom;
+create table stud(
+id int primary key auto_increment,
+`name` text
+);
+
+create table prepod(
+id int primary key auto_increment,
+`name` text
+);
+
+create table tema(
+id int primary key auto_increment,
+prepod_id int,
+foreign key (prepod_id) references prepod (id),
+tema varchar(255),
+`status` bool
+);
+
+
+create table stud_has_tema(
+id int primary key auto_increment,
+stud_id int,
+tema_id int,
+approved bool,
+foreign key (stud_id) references stud (id),
+foreign key (tema_id) references tema (id)
+);
+
+create table stadges (
+	id int primary key auto_increment,
+    `name` varchar(255)
+);
+
+create table calendar(
+id int primary key auto_increment,
+date_begin date,
+date_end date,
+stud_has_tema_id int,
+`completed` bool,
+stadges_id int,
+foreign key (stadges_id) references stadges (id),
+foreign key (stud_has_tema_id) references stud_has_tema (id)
+);
+
+create table kons(
+id int primary key auto_increment,
+`date` date,
+stud_has_tema_id int,
+`is_visited` bool,
+foreign key (stud_has_tema_id) references stud_has_tema (id)
+);
